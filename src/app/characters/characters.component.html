@@ -1,0 +1,25 @@
+<body>
+<mat-toolbar color="primary">
+    <img class="vifrota" src="assets/iconVif.png">
+    Harry Potter Characters
+    <img class="vif" src="assets/iconVif.png">
+</mat-toolbar>
+<div class="content" fxLayout="row wrap" fxLayoutGap="30px grid"
+(click)="btnClick(id)"
+[ngStyle]="{backgroundImage:'url(./assets/marauder.jpg)'}"> 
+<div class="main-div" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" 
+*ngFor="let character of characters; let i = index" 
+[routerLink]="['/detail', character._id]">
+<mat-card style="background-color: grey;" class="example-card">
+    <mat-card-header>
+        <mat-card-title>{{character.name}}</mat-card-title>
+        <mat-card-subtitle>{{character.house}}</mat-card-subtitle>
+    </mat-card-header>
+        <img mat-card-image src='assets/{{character.house}}.jpg'>
+    <mat-card-content> 
+        {{character.role}}
+    </mat-card-content>
+</mat-card>
+</div>
+</div>
+</body>

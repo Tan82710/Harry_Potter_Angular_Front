@@ -1,0 +1,43 @@
+.main-div{
+    width : 50; 
+    height : 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.content {
+    padding: 16px;
+    font-family: 'Harry Potter';
+}
+
+.background {
+  background-repeat: no-repeat; 
+  background-position: center top;
+  background-attachment: fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+width: 100%;
+height: 100%;
+position: fixed;
+}
+
+.vif{
+  height: 75%;
+}
+
+.vifrota{
+  height: 75%;
+  transform: rotateY(180deg);
+}
+
+mat-toolbar{
+  justify-content: center;
+  align-items: center;
+}
+
+mat-toolbar, mat-card{ 
+  font-family: 'Harry Potter';
+}

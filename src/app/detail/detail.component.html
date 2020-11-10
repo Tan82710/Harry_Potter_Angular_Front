@@ -1,0 +1,67 @@
+<div class="scroll" [ngStyle]="{backgroundImage:'url(./assets/wall.jpg)'}">
+  <mat-card class="background" [ngStyle]="{backgroundImage:'url(./assets/paper.jpg)'}">
+    <div class="details" *ngIf="detail">
+      <h1>Name : {{detail.name}}</h1>
+      <h1>Role : {{detail.role}}</h1>
+      <h1>House : {{detail.house}}</h1>
+      <h1>School : {{detail.school}}</h1>
+      <fieldset>
+        <legend>
+          <h1>Ministry Of Magic</h1>
+        </legend>
+        <div>
+          <input type="checkbox" id="Yes" [checked]="detail.ministryOfMagic">
+          <label for="Yes">Yes</label>
+        </div>
+        <div>
+          <input type="checkbox" id="No" [checked]="!detail.ministryOfMagic">
+          <label for="No">No</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h1>Order Of The Phoenix</h1>
+        </legend>
+        <div>
+          <input type="checkbox" id="Yes" [checked]="detail.orderOfThePhoenix">
+          <label for="Yes">Yes</label>
+        </div>
+        <div>
+          <input type="checkbox" id="No" [checked]="!detail.orderOfThePhoenix">
+          <label for="No">No</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h1>Dumbledores Army</h1>
+        </legend>
+        <div>
+          <input type="checkbox" id="Yes" [checked]="detail.dumbledoresArmy">
+          <label for="Yes">Yes</label>
+        </div>
+        <div>
+          <input type="checkbox" id="No" [checked]="!detail.dumbledoresArmy">
+          <label for="No">No</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h1>Death Eater</h1>
+        </legend>
+        <div>
+          <input type="checkbox" id="Yes" [checked]="detail.deathEater">
+          <label for="Yes">Yes</label>
+        </div>
+        <div>
+          <input type="checkbox" id="No" [checked]="!detail.deathEater">
+          <label for="No">No</label>
+        </div>
+      </fieldset>
+      <h1>Blood Status : {{detail.bloodStatus}}</h1>
+      <h1>Species : {{detail.species}}</h1>
+      <h1>Patronus : {{detail.patronus}}</h1>
+      <h1>Wand : {{detail.wand}}</h1>
+
+    </div>
+  </mat-card>
+</div>
