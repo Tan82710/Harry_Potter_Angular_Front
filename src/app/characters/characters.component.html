@@ -4,9 +4,15 @@
     Harry Potter Characters
     <img class="vif" src="assets/iconVif.png">
 </mat-toolbar>
+<div class="content" fxLayout="row wrap" fxLayoutGap="20px grid">
+<div class="filter" fxFlex="15%" fxFlex.xs="100%" fxFlex.sm="33%"
+*ngFor="let filter of filters">
+<button mat-button color="primary">{{filter}}</button>
+</div>
+</div>
 <div class="content" fxLayout="row wrap" fxLayoutGap="30px grid"
 (click)="btnClick(id)"
-[ngStyle]="{backgroundImage:'url(./assets/marauder.jpg)'}"> 
+[ngStyle]="{backgroundImage:'url(./assets/marauder.jpg)'}">
 <div class="main-div" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" 
 *ngFor="let character of characters; let i = index" 
 [routerLink]="['/detail', character._id]">
@@ -17,7 +23,7 @@
     </mat-card-header>
         <img mat-card-image src='assets/{{character.house}}.jpg'>
     <mat-card-content> 
-        {{character.role}}
+       Actor : {{character.actor}}
     </mat-card-content>
 </mat-card>
 </div>

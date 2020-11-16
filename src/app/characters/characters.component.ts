@@ -3,15 +3,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiHPService } from '../api-hp.service';
 import { Character } from '../Class/character';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 
-
-// interface ICharacter {
-//   id : number;
-//   name : string;
-//   house : string;
-//   img : string;
-//   description : string;
+// interface ICharacter{
+//   id : number,
+//   name : string,
+//   house : string,
+//   patronus : string,
+//   species : string,
+//   bloodStatus : string,
+//   role : string,
+//   school : string,
+//   deathEater : boolean,
+//   dumbledoresArmy : boolean,
+//   orderOfThePhoenix : boolean,
+//   ministryOfMagic : boolean,
+//   wand : string,
 // }
 
 @Component({
@@ -26,22 +32,35 @@ export class CharactersComponent implements OnInit {
     private route : ActivatedRoute, 
     private apiHPService: ApiHPService) { }
 
+    filters: string[] = ['Role', 'House', 'School', 'Blood Status', 'Species', 'Others'];
+
   characters: Character[] 
   id: number
 
   ngOnInit() : void {
     this.charactersList()
+    this.playAudio();
+
   }
 
   ngDoCheck(){
     this.Img()
+    this.myId()
   }
 
   btnClick = function(id) {
     this.router.navigateByUrl('/detail', id);
   };
 
+  playAudio(){
+    console.log('AUDIO ON')
+    let audio = new Audio();
+    audio.src = "../../../assets/audio/hp_song.mp3";
+    audio.load();
+    audio.play();
+  }
 
+  
 charactersList() {
     this.apiHPService.getCharacters().subscribe(
       (res: any) => {
@@ -51,87 +70,21 @@ charactersList() {
     )
   }
 
+myId(){
+  //Pour chaque élément, affecter un id
+  this.characters.forEach((item, i) => {
+    item._id = i  ;
+  });
+  console.log(this.characters)
+}
+
   Img () {
     const arrayCharacters = this.characters.map(res => {
-      if(res.house == undefined){
+      if(res.house == ""){
         res.house = 'default'
       }
-      return this.characters
+      return res.house;
     })    
   }
-
-
-  // characterList : ICharacter[]= [
-  //   {
-  //     id : 1,
-  //     name : "Harry Potter",
-  //     house : "Gryffondor",
-  //     img : "assets/Gryffondor.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 2,
-  //     name : "Drago Malefoy",
-  //     house : "Serpentar",
-  //     img : "assets/Serpentar.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 3,
-  //     name : "Cedric Diggory",
-  //     house : "Poufsouffle",
-  //     img : "assets/Poufsouffle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 4,
-  //     name : "Cho Chang",
-  //     house : "Serdaigle",
-  //     img : "assets/Serdaigle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 5,
-  //     name : "Cho Chang",
-  //     house : "Serdaigle",
-  //     img : "assets/Serdaigle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 6,
-  //     name : "Harry Potter",
-  //     house : "Gryffondor",
-  //     img : "assets/Gryffondor.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 7,
-  //     name : "Drago Malefoy",
-  //     house : "Serpentar",
-  //     img : "assets/Serpentar.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 8,
-  //     name : "Cedric Diggory",
-  //     house : "Poufsouffle",
-  //     img : "assets/Poufsouffle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 9,
-  //     name : "Cho Chang",
-  //     house : "Serdaigle",
-  //     img : "assets/Serdaigle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   },
-  //   {
-  //     id : 10,
-  //     name : "Cho Chang",
-  //     house : "Serdaigle",
-  //     img : "assets/Serdaigle.jpg",
-  //     description : "BLABLA sur le personnage"
-  //   }
-  // ]
 
 }

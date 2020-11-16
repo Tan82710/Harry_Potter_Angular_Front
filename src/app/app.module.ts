@@ -12,6 +12,7 @@ import { DetailComponent } from './detail/detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiHPService } from './api-hp.service';
 import { Error404Component } from './error404/error404.component'
+import { MaterialModule } from './material'
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { Error404Component } from './error404/error404.component'
     MatToolbarModule,
     FlexLayoutModule,
     HttpClientModule,
+    MaterialModule
 
   ],
   providers: [ApiHPService],

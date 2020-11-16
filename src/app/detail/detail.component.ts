@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiHPService } from '../api-hp.service';
-import { Character } from '../Class/character';
 import { Detail } from '../Class/detail'
 import { Router } from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
@@ -23,13 +22,19 @@ export class DetailComponent implements OnInit {
   constructor(private apiHpSerice : ApiHPService, private router : Router) { }
 
   result : String[]
-  detail : Detail[]
+  details : Detail[]
+  detail : Detail
+  wands : String
 
   ngOnInit(): void {
     this.Detail(this.id)
     console.log(this.router.url)
     console.log(this.idSplit[1])
+  
+  }
 
+  ngDoCheck(){
+    console.log(this.detail)
   }
 
   idSplit = this.router.url.split("/detail/")
@@ -48,8 +53,10 @@ export class DetailComponent implements OnInit {
   Detail(id){
     this.apiHpSerice.getDetails(id).subscribe(
       (res) => {
-        this.detail = res
-        console.log(this.detail)
+        this.details = res
+        console.log(this.details)
+        this.detail = this.details[id]
+        return this.detail
       }
     )
   }
