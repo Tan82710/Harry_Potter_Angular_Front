@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { CharactersComponent } from './characters/characters.component';
 import { DetailComponent } from './detail/detail.component';
 import { Error404Component } from './error404/error404.component'
+import { CreateWizardComponent } from './create-wizard/create-wizard.component'
 
 const routes: Routes = [
   {path: 'characters', component: CharactersComponent},
   {path: 'detail/:id', component: DetailComponent},
+  {path: 'createWizard', component: CreateWizardComponent},
   { path: '',   redirectTo: '/characters', pathMatch: 'full' },
   { path: '**', component: Error404Component },  // Wildcard route for a 404 page
 ];

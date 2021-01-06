@@ -29,12 +29,7 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.Detail(this.id)
     console.log(this.router.url)
-    console.log(this.idSplit[1])
   
-  }
-
-  ngDoCheck(){
-    console.log(this.detail)
   }
 
   idSplit = this.router.url.split("/detail/")
@@ -54,7 +49,6 @@ export class DetailComponent implements OnInit {
     this.apiHpSerice.getDetails(id).subscribe(
       (res) => {
         this.details = res
-        console.log(this.details)
         this.detail = this.details[id]
         return this.detail
       }

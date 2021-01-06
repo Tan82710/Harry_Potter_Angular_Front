@@ -1,24 +1,24 @@
 <div class="scroll" [ngStyle]="{backgroundImage:'url(./assets/wall.jpg)'}">
   <mat-card class="background" [ngStyle]="{backgroundImage:'url(./assets/paper.jpg)'}">
     <div class="details" *ngIf="detail">
-      <h1>Name : {{detail.name}}</h1>
-      <h1>Actor : {{detail.actor}}</h1>
-      <h1>House : {{detail.house}}</h1>
-      <h1>Blood Status : {{detail.ancestry}}</h1>
-      <h1>Date Of Birth : {{detail.dateOfBirth}}</h1>
-      <!-- <h1>Eye Colour : {{detail.eyeColour}}</h1>
-      <h1>Gender : {{detail.gender}}</h1>
-      <h1>Hair Colour : {{detail.hairColour}}</h1> -->
-      <h1>Patronus : {{detail.patronus}}</h1>
-      <h1>Species : {{detail.species}}</h1>
-      <h1>Wand : 
+      <h3>Name : {{detail.name}}</h3>
+      <h3>Actor : {{detail.actor}}</h3>
+      <h3>House : {{detail.house}}</h3>
+      <h3>Blood Status : {{detail.ancestry}}</h3>
+      <h3>Date Of Birth : {{detail.dateOfBirth}}</h3>
+      <!-- <h3>Eye Colour : {{detail.eyeColour}}</h3>
+      <h3>Gender : {{detail.gender}}</h3>
+      <h3>Hair Colour : {{detail.hairColour}}</h3> -->
+      <h3>Patronus : {{detail.patronus}}</h3>
+      <h3>Species : {{detail.species}}</h3>
+      <h3>Wand : 
         {{detail.wand.core}} -
         {{detail.wand.wood}} -
         {{detail.wand.length}}
-      </h1>
+      </h3>
       <fieldset>
         <legend>
-          <h1>Alive</h1>
+          <h3>Alive</h3>
         </legend>
         <div>
           <input type="checkbox" id="Yes" [checked]="detail.alive">
@@ -31,7 +31,7 @@
       </fieldset>
       <fieldset>
         <legend>
-          <h1>Hogwarts Staff</h1>
+          <h3>Hogwarts Staff</h3>
         </legend>
         <div>
           <input type="checkbox" id="Yes" [checked]="detail.hogwartsStaff">
@@ -44,7 +44,7 @@
       </fieldset>
       <fieldset>
         <legend>
-          <h1>Hogwarts Student</h1>
+          <h3>Hogwarts Student</h3>
         </legend>
         <div>
           <input type="checkbox" id="Yes" [checked]="detail.hogwartsStudent">

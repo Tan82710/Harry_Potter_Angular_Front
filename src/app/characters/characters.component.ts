@@ -4,22 +4,6 @@ import { Observable } from 'rxjs';
 import { ApiHPService } from '../api-hp.service';
 import { Character } from '../Class/character';
 
-// interface ICharacter{
-//   id : number,
-//   name : string,
-//   house : string,
-//   patronus : string,
-//   species : string,
-//   bloodStatus : string,
-//   role : string,
-//   school : string,
-//   deathEater : boolean,
-//   dumbledoresArmy : boolean,
-//   orderOfThePhoenix : boolean,
-//   ministryOfMagic : boolean,
-//   wand : string,
-// }
-
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
@@ -39,8 +23,7 @@ export class CharactersComponent implements OnInit {
 
   ngOnInit() : void {
     this.charactersList()
-    this.playAudio();
-
+    
   }
 
   ngDoCheck(){
@@ -52,12 +35,14 @@ export class CharactersComponent implements OnInit {
     this.router.navigateByUrl('/detail', id);
   };
 
+  //Bug musique à régler
   playAudio(){
     console.log('AUDIO ON')
     let audio = new Audio();
     audio.src = "../../../assets/audio/hp_song.mp3";
     audio.load();
     audio.play();
+    console.log('END FUNCTION')
   }
 
   
@@ -75,7 +60,7 @@ myId(){
   this.characters.forEach((item, i) => {
     item._id = i  ;
   });
-  console.log(this.characters)
+  // console.log(this.characters)
 }
 
   Img () {

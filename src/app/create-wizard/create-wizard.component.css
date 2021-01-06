@@ -1,0 +1,67 @@
+h2{
+  text-decoration: underline;
+}
+
+.create{
+  display: block;
+  margin : auto;
+}
+
+.icon{
+  width: 30px;
+  height: 30px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  .example-radio-group {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+  }
+
+  #maison, #changeBois, #changeCoeur, #changeSouplesse{
+    display: none;
+  }
+
+  .baguette{
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  #autoText{
+    border-right: 0.15em solid white;
+    letter-spacing: 0.05em;
+    animation: blink 0.75s step-end infinite;
+  }
+
+  .icon {
+    display: flex;
+    justify-content: flex-start;
+    position: static;
+  }
+
+  .name {
+    /* position: static; */
+  }
+
+  .next {
+    
+  }
+  /* Animation, faire clignoter le border-right */
+  @keyframes blink {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }

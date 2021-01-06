@@ -1,0 +1,241 @@
+<body>
+    <mat-toolbar color="primary">
+        <div id='autoText' [innerHTML]="title"></div>
+    </mat-toolbar>
+    <mat-tab-group animationDuration="1000ms">
+        <mat-tab label="Liste de sorcier">Ma liste de sorcier
+
+            <div class="avatar-sample">
+                <igx-avatar src="../assets/Harry.jpg" [roundShape]="true" size="medium"></igx-avatar>
+            </div>
+
+
+        </mat-tab>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------ -->
+        <mat-tab label="Créer un sorcier">
+
+            <mat-vertical-stepper [linear]="isLinear" #stepper>
+
+                <mat-step [stepControl]="firstFormGroup" class="test1">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>Enter the name of your wizard</ng-template>
+
+                        <igx-avatar icon="person" [roundShape]="true" size="medium"></igx-avatar>
+                
+                        <mat-form-field class='name'>
+                            <mat-label>Nom du sorcier</mat-label>
+                            <input matInput placeholder="Ex: Harry Potter" [(ngModel)]="name"
+                                formControlName="firstCtrl" required>
+                        </mat-form-field>
+                 
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="secondFormGroup">
+                    <form [formGroup]="secondFormGroup">
+                        <ng-template matStepLabel>Choose your school and home</ng-template>
+
+                        <h4><b>Ecoles :</b></h4>
+                        <mat-radio-group class="example-radio-group" [(ngModel)]="ecoleChoisi" (change)='houseChoice()'
+                            formControlName="secondCtrl">
+                            <mat-radio-button class="example-radio-button" *ngFor='let ecole of ecoles' [value]='ecole'
+                                (click)='show("maison")'>
+                                {{ecole}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                        <div id='maison'>
+                            <h4><b>Maisons :</b></h4>
+                            <mat-radio-group class="example-radio-group" [(ngModel)]="maisonChoisi"
+                                formControlName="secondCtrl">
+                                <mat-radio-button *ngFor='let maison of maisons' [value]='maison.name'
+                                    matTooltip='{{maison.infos}}'>
+                                    {{maison.name}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="thirdFormGroup">
+                    <form [formGroup]="thirdFormGroup">
+                        <ng-template matStepLabel>Create your magic wand</ng-template>
+
+                        <mat-accordion class="example-headers-align">
+
+                            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle
+                                (click)="removed('bois', 'changeBois')">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <b>Bois</b>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Le type de bois de votre baguette
+                                        <img class="icon" src="assets/bois.png">
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+
+                                <div class="baguette">
+                                    <mat-chip-list aria-label="Fish selection" *ngFor='let bois of boisBaguette'
+                                        formControlName="thirdCtrl">
+                                        <mat-chip (click)="selected(bois, 'bois')">
+                                            {{bois}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle
+                                (click)="removed('coeur','changeCoeur')">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <b>Coeur</b>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Le coeur de votre baguette
+                                        <img class="icon" src="assets/coeur.gif">
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <div class="baguette">
+                                    <mat-chip-list aria-label="Fish selection" *ngFor='let coeur of coeurBaguette'
+                                        formControlName="thirdCtrl">
+                                        <mat-chip (click)="selected(coeur, 'coeur')">
+                                            {{coeur}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle
+                                (click)="removed('taille','changeTaille')">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <b>Taille et Souplesse de la baguette</b>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        La taille de votre baguette et la souplesse
+                                        <img class="icon" src="assets/regle.png">
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <div class="baguette">
+                                    <mat-chip-list aria-label="Fish selection"
+                                        *ngFor='let souplesse of souplesseBaguette' formControlName="thirdCtrl">
+                                        <mat-chip (click)="selected(souplesse, 'souplesse')">
+                                            {{souplesse}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+
+                                <mat-slider [max]="35" [min]="22" [step]="0.1" [thumbLabel]="true"
+                                    [displayWith]="formatLabel" [(ngModel)]="tailleBaguette"
+                                    formControlName="thirdCtrl">
+                                </mat-slider>
+                            </mat-expansion-panel>
+
+                        </mat-accordion>
+
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext (click)="validateSize()">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="fourthFormGroup">
+                    <form [formGroup]="fourthFormGroup">
+                        <ng-template matStepLabel>Choose your patronus</ng-template>
+
+                        <mat-form-field>
+                            <mat-label>Patronus corporel</mat-label>
+                            <input matInput [matAutocomplete]="auto" placeholder="Ex: Chien, chat, phenix..."
+                                [(ngModel)]="patronus" formControlName="fourthCtrl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let examplePatronus of filteredExamplePatronus | async"
+                                    [value]="examplePatronus">
+                                    {{examplePatronus}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="fifthFormGroup">
+                    <form [formGroup]="fifthFormGroup">
+                        <ng-template matStepLabel>Choose your blood status</ng-template>
+
+                        <div id='sang'>
+                            <h4><b>Types de statuts :</b></h4>
+                            <mat-radio-group class="example-radio-group" [(ngModel)]="sangChoisi"
+                                formControlName="fifthCtrl">
+                                <mat-radio-button *ngFor='let sang of sangs' [value]='sang.name'
+                                    matTooltip='{{sang.infos}}'>
+                                    {{sang.name}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="sixthFormGroup">
+                    <form [formGroup]="sixthFormGroup">
+                        <ng-template matStepLabel>Choose your course Specialty</ng-template>
+
+                        <h4><b>Cours obligatoires :</b></h4>
+                        <mat-radio-group class="example-radio-group" [(ngModel)]="coursObliChoisi"
+                             formControlName="sixthCtrl">
+                            <mat-radio-button class="example-radio-button" *ngFor='let cours of coursObli'
+                                [value]='cours'>
+                                {{cours}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                        <h4><b>Cours optionnels :</b></h4>
+                        <mat-radio-group class="example-radio-group" [(ngModel)]="coursOptioChoisi"
+                            formControlName="sixthCtrl">
+                            <mat-radio-button class="example-radio-button" *ngFor='let cours of coursOptio'
+                                [value]='cours'>
+                                {{cours}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <ng-template matStepLabel>Done</ng-template>
+                    <p>You are now done.</p>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="createAndAdd()">Create my wizard</button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+
+        </mat-tab>
+    </mat-tab-group>
+</body>
