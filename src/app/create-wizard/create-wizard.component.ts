@@ -2,39 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ApiHPService } from '../api-hp.service'
-import {Wizard} from '../wizard'
+import { Wizard } from '../Class/wizard'
 
 @Component({
   selector: 'app-create-wizard',
   templateUrl: './create-wizard.component.html',
   styleUrls: ['./create-wizard.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
   }]
 
 })
 export class CreateWizardComponent implements OnInit {
 
-  wizard : Wizard[]
+  wizard: Wizard[]
+  newWizard: Wizard[]
 
   maisons = []
   maisonChoisi: string;
 
   ecoles: string[] = ['Poudlard', 'Durmstrang', 'Beauxbâton', 'Koldovstoretz', 'Castelobruxo', 'Uagadou', 'Mahoutokoro', 'Ilvermorny'];
   ecoleChoisi: string;
-  
+
   coursObli: string[] = ['Astronomie', 'Botanique', 'Défense contre les forces du Mal', 'Histoire de la magie', 'Métamorphose', 'Potions', 'Sortilèges', 'Vol sur balai'];
   coursObliChoisi: string;
   coursOptio: string[] = ['Arithmancie', 'Divination', 'Etude des Moldus', 'Etude des runes', 'Soins aux créatures magiques'];
-  coursOptioChoisi : string;
+  coursOptioChoisi: string;
 
-  baguette = []
-  bois : string;
-  coeur : string;
+  baguetteCrea = []
+  baguette = {}
+  bois: string;
+  coeur: string;
   boisBaguette: string[] = ['Acacia', 'Acajou', 'Amourette', 'Aubépine', 'Aubépine des marais', 'Aulne', 'Bouleau', 'Cèdre', 'Cerisier', 'Charme',
     'Châtaignier', 'Chêne', 'Chêne blanc', 'Chêne rouge', 'Cornouiller', 'Cyprès', 'Ébène', 'Épicéa', 'Érable à sucre', 'Frêne', 'Frêne épineux',
     'Hêtre', 'Houx', 'Laurier', 'Lierre', 'Mélèze', 'Mélèze laricin', 'Noisetier', 'Noyer', 'Noyer noir', 'Orme', 'Peuplier', 'Pin', 'Poirier',
@@ -45,17 +47,17 @@ export class CreateWizardComponent implements OnInit {
     'Poil de rougarou', 'Moustache de troll', 'Poil de womatou', 'Tige de dictame', 'Ventricule de dragon', 'Ventricule de Snallygaster']
   tailleBaguette = 0
   souplesseBaguette: string[] = ['Très souple', 'Souple', 'Légèrement souple', 'Très rigide', 'Rigide', 'Légèrement rigide', 'Très flexible',
-   'Flexible', 'Légèrement flexible']
+    'Flexible', 'Légèrement flexible']
   souplesse = ''
 
   sangs = [
-    {name : 'Sang-Pur', infos : "Un Sang-Pur est un sorcier qui n'a aucun Moldu ni né-Moldu parmi ses parents et grands-parents. Ce statut les pousse parfois à se prétendre supérieurs aux autres sorciers et aux Moldus. Certains Sang-Pur haïssent les Moldus et les plus extrémistes d'entre eux voudraient leur donner le statut d'animaux. Ex: Famille Malefoy"},
-    {name : 'Sang-Mêlé', infos : "Un Sang-Mêlé est un sorcier ayant au moins un ascendant sorcier (qui est un Sang-Mêlé ou un Sang-Pur) et un parent Moldu (ou Né-Moldu). Aujourd'hui, la plupart des sorciers et sorcières sont des Sang-Mêlés. Ex: Harry Potter"},
-    {name : 'Nés-Moldus', infos : "Un né-Moldu est un sorcier né de deux parents Moldus. Ils étaient nommés affectueusement Mutmags du temps de Salazar Serpentard, un mélange probable entre mutant et magie. A l'époque, on les considérait comme étant particulièrement doués pour la magie. Ex: Hermione Granger"},
-    {name : 'Cracmols', infos : "Un Cracmol est une personne née d'au moins un parent sorcier mais qui est dépourvue de pouvoirs magiques. Ce sont des cas très rares car la magie est un gène dominant et résistant. Les Cracmols ne sont pas admis à Poudlard en tant qu'élèves. Un Cracmol n'est pas un Moldu. Par exemple, à la grande différence des Moldus, les Cracmols, bien qu'incapables de voir des Détraqueurs, ont assez de connaissances en magie pour identifier leur présence. Ex: Argus Rusard (le concierge de Poudlard)"},
-    {name : 'Hybrides', infos : "Les hybrides sont des humains avec au moins un parent n'étant pas humain, bien que les sorciers ayant un ancêtre non-humain sont aussi considérés comme des hybrides. Ils sont très rares et ont les traits des deux espèces, telle que la capacité d'utiliser la magie et de résister aux sorts pour ceux qui ont du sang de géant. Ex: Rubeus Hagrid (Demi-Géant)"},
+    { name: 'Sang-Pur', infos: "Un Sang-Pur est un sorcier qui n'a aucun Moldu ni né-Moldu parmi ses parents et grands-parents. Ce statut les pousse parfois à se prétendre supérieurs aux autres sorciers et aux Moldus. Certains Sang-Pur haïssent les Moldus et les plus extrémistes d'entre eux voudraient leur donner le statut d'animaux. Ex: Famille Malefoy" },
+    { name: 'Sang-Mêlé', infos: "Un Sang-Mêlé est un sorcier ayant au moins un ascendant sorcier (qui est un Sang-Mêlé ou un Sang-Pur) et un parent Moldu (ou Né-Moldu). Aujourd'hui, la plupart des sorciers et sorcières sont des Sang-Mêlés. Ex: Harry Potter" },
+    { name: 'Nés-Moldus', infos: "Un né-Moldu est un sorcier né de deux parents Moldus. Ils étaient nommés affectueusement Mutmags du temps de Salazar Serpentard, un mélange probable entre mutant et magie. A l'époque, on les considérait comme étant particulièrement doués pour la magie. Ex: Hermione Granger" },
+    { name: 'Cracmols', infos: "Un Cracmol est une personne née d'au moins un parent sorcier mais qui est dépourvue de pouvoirs magiques. Ce sont des cas très rares car la magie est un gène dominant et résistant. Les Cracmols ne sont pas admis à Poudlard en tant qu'élèves. Un Cracmol n'est pas un Moldu. Par exemple, à la grande différence des Moldus, les Cracmols, bien qu'incapables de voir des Détraqueurs, ont assez de connaissances en magie pour identifier leur présence. Ex: Argus Rusard (le concierge de Poudlard)" },
+    { name: 'Hybrides', infos: "Les hybrides sont des humains avec au moins un parent n'étant pas humain, bien que les sorciers ayant un ancêtre non-humain sont aussi considérés comme des hybrides. Ils sont très rares et ont les traits des deux espèces, telle que la capacité d'utiliser la magie et de résister aux sorts pour ceux qui ont du sang de géant. Ex: Rubeus Hagrid (Demi-Géant)" },
   ]
-  sangChoisi=[]
+  sangChoisi = []
 
   myControl = new FormControl();
   examplePatronus: string[] = ['Chien', 'Chat', 'Cheval', 'Phénix', 'Dragon'];
@@ -65,13 +67,15 @@ export class CreateWizardComponent implements OnInit {
   text = 'Créer votre propre sorcier'
 
   validate = true
-  name : string;
-  patronus : string;
+  name: string;
+  patronus: string;
 
-  sorcier =  []
+  sorcier = []
+  wiz = ''
 
+  
   //Utilisation de Stepper - Angular Material
-  isLinear = false;
+  isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -79,8 +83,8 @@ export class CreateWizardComponent implements OnInit {
   fifthFormGroup: FormGroup;
   sixthFormGroup: FormGroup;
 
-  constructor(public readonly swalTargets: SwalPortalTargets, private _formBuilder: FormBuilder, 
-              private HpService : ApiHPService) { }
+  constructor(public readonly swalTargets: SwalPortalTargets, private _formBuilder: FormBuilder,
+    private HpService: ApiHPService) { }
 
   ngOnInit(): void {
     this.filteredExamplePatronus = this.myControl.valueChanges.pipe(
@@ -91,58 +95,76 @@ export class CreateWizardComponent implements OnInit {
     this.play()
     this.stepperFunction()
     this.getWizard()
+  }
+
+  ngDoCheck() {
 
   }
 
-  ngDoCheck(){
-  }
-
-  createAndAdd(){
+  createAndAdd() {
     this.createWizard()
     this.addWizard(this.sorcier)
+    window.location.reload()
   }
 
-  createWizard(){
+  createWizard() {
     this.sorcier.splice(1, 0, {
-      nom : this.name, 
-      ecole : this.ecoleChoisi, 
-      maison : this.maisonChoisi,
-      baguette : this.baguette,
-      patronus : this.patronus,
-      sang : this.sangChoisi,
-      coursObligatoire : this.coursObliChoisi,
-      coursOptionnel : this.coursOptioChoisi
+      nom: this.name,
+      ecole: this.ecoleChoisi,
+      maison: this.maisonChoisi,
+      baguette: this.baguette,
+      patronus: this.patronus,
+      sang: this.sangChoisi,
+      coursObligatoire: this.coursObliChoisi,
+      coursOptionnel: this.coursOptioChoisi
     })
     console.log(this.sorcier)
+    console.log(this.sorcier[0].baguette)
+    console.log(Object.values(this.sorcier[0]))
+    
+    this.sorcier = Object.values(this.sorcier[0])
+    let sorcier = this.sorcier.length
+    for (let i = 0; i < sorcier; i++) {
+      console.log(this.sorcier[i])
+      if (this.sorcier[i] == undefined)
+        return console.error('Champ: ' + this.sorcier[i] + ' invalide');
+
+    }
   }
 
   //Envoie des données en backend via HpService
-  addWizard(wizard){
+  addWizard(wizard) {
     wizard = this.sorcier
     console.log('WIZARD: ' + JSON.stringify(wizard))
     this.HpService.addData(wizard).subscribe(
-      res => {console.log(res)}
+      res => { console.log(res) }
     )
   }
 
   //Récupère les données stocké en BDD
-  getWizard(){
-    console.log('GetWizard')
+  getWizard() {
     this.HpService.getData().subscribe(
-      res => {console.log(res)}
+      res => {
+        this.newWizard = res
+        console.log(this.newWizard)
+      }
     )
-    console.log('GetWizard _ END')
   }
 
-  stepperFunction(){
+  stepperFunction() {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: ['', Validators.required],
+      secondCtrl1:['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required]
+      thirdCtrl: ['', Validators.required],
+      thirdCtrl1: ['', Validators.required],
+      thirdCtrl2: ['', Validators.required],
+      thirdCtrl3: ['', Validators.required]
+    
     });
     this.fourthFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required]
@@ -151,13 +173,14 @@ export class CreateWizardComponent implements OnInit {
       fifthCtrl: ['', Validators.required]
     });
     this.sixthFormGroup = this._formBuilder.group({
-      sixthCtrl: ['', Validators.required]
+      sixthCtrl: ['', Validators.required],
+      sixthCtrl1: ['', Validators.required]
     });
+    // console.log(this.firstFormGroup)
+    // console.log(this.thirdFormGroup)
   }
 
-
-
-//utilisation de step pour l'ouverture et la fermeture de l'expansion-panel
+  //utilisation de step pour l'ouverture et la fermeture de l'expansion-panel
   step = 0;
   setStep(index: number) {
     this.step = index;
@@ -168,7 +191,7 @@ export class CreateWizardComponent implements OnInit {
     this.title = `<h5><strong>${this.text.slice(0, this.index)}</strong><h5>`
     this.index++
 
-    if(this.index > this.text.length){
+    if (this.index > this.text.length) {
       this.index = 0
     }
 
@@ -181,7 +204,7 @@ export class CreateWizardComponent implements OnInit {
     return Math.floor(Math.random() * (max - min) + min)
   }
 
-//Autocomplete
+  //Autocomplete
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
@@ -193,7 +216,7 @@ export class CreateWizardComponent implements OnInit {
     document.getElementById(`${data}`).style.display = 'block';
   }
 
-//Afficher la valeur sur la mat-slider
+  //Afficher la valeur sur la mat-slider
   formatLabel(value: number) {
     return value + 'cm';
   }
@@ -201,11 +224,12 @@ export class CreateWizardComponent implements OnInit {
   // Valide la taille et la souplesse de la baguette
   validateSize() {
     // debugger;
-    this.baguette.splice(2, 0, {'taille' : this.tailleBaguette, 'souplesse' : this.souplesse})
+    this.baguette = { 'bois': this.bois, 'coeur': this.coeur, 'taille': this.tailleBaguette, 'souplesse': this.souplesse }
+    // this.baguetteCrea.splice(0, 0, { 'bois': this.bois, 'coeur': this.coeur, 'taille': this.tailleBaguette, 'souplesse': this.souplesse })
     this.step++;
     //PopUp SweetAlert2
     Swal.fire({
-      text: `La baguette qui vous a choisi est en ${this.baguette[0].bois} avec un coeur de ${this.baguette[1].coeur}. 
+      text: `La baguette qui vous a choisi est en ${this.bois} avec un coeur de ${this.coeur}. 
       Elle est ${this.souplesse} et mesure ${this.tailleBaguette} cm`,
       icon: 'success'
     })
@@ -216,46 +240,39 @@ export class CreateWizardComponent implements OnInit {
 
     if (id == 'bois') {
       this.bois = data
-      this.baguette.splice(0, 0, {'bois': this.bois})
+      // this.baguette.splice(0, 0, { 'bois': this.bois })
       //Au changement du bois, on laisse le panel du coeur fermé.
       //De même pour le changement du coeur.
-      if(this.baguette[1]){
+      if (this.baguette[1]) {
         this.setStep(-1)
-      }else{
+      } else {
         this.step++
       }
     } else if (id == 'coeur') {
       this.coeur = data
-      this.baguette.splice(1, 0, {'coeur': this.coeur})
-      if(this.baguette[2]){
+      // this.baguette.splice(1, 0, { 'coeur': this.coeur })
+      // this.baguette.splice(0, 0, {'bois': this.bois, 'coeur': this.coeur })
+      if (this.baguette[2]) {
         this.setStep(-1)
-      }else{
+      } else {
         this.step++
       }
-    }  else if (id == 'souplesse') {
-      this.souplesse = data 
-    } 
+    } else if (id == 'souplesse') {
+      this.souplesse = data
+    }
   }
 
-//Permet de changer le bois ou le coeur
+  //Permet de changer le bois, le coeur ou la taille
   removed(arg1, arg2) {
     if (arg1 == 'bois' && arg2 == 'changeBois') {
-      this.baguette.splice(0, 1)
+      this.baguetteCrea.splice(0, 1)
     } else if (arg1 == 'coeur' && arg2 == 'changeCoeur') {
-      this.baguette.splice(1, 1)
+      this.baguetteCrea.splice(1, 1)
     } else if (arg1 == 'taille' && arg2 == 'changeTaille') {
-      this.baguette.splice(2, 1)
-    } 
-
-    console.log(this.baguette)
-
+      this.baguetteCrea.splice(2, 1)
+    }
+    // console.log(this.baguette)
   }
-
-  // bloodChoice(){
-  //   console.log(this.sangChoisi)
-  //   console.log(this.coursObliChoisi)
-  //   console.log(this.coursOptioChoisi)
-  // }
 
   //Choix de l'école et la maison
   houseChoice() {
@@ -326,7 +343,7 @@ export class CreateWizardComponent implements OnInit {
         ]
         break;
     }
-    // console.log(this.maisons)
+    console.log(this.maisons)
   }
 
 }

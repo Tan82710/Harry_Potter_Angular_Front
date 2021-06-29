@@ -1,0 +1,32 @@
+<body class="background" >
+    
+<!-- <div class="container-all" *ngIf="detailWizard"> -->
+<!-- <div class='title' [innerHTML]="title"></div> -->
+
+    <mat-card>
+        <div class="container">
+            <div class="info">                
+                <h3>Informations Sorcier</h3>
+                <span>Nom : {{detailWizard[0].nom}}</span>
+                <span>Patronus : {{detailWizard[0].patronus}}</span>
+                <span>Status Sanguin : {{detailWizard[0].sang}}</span>
+                <span>Spécialite 1 : {{detailWizard[0].coursObli}}</span>
+                <span>Spécialite 2 : {{detailWizard[0].coursOptio}}</span>
+            </div>
+            <div class="baguette">
+                <h3>Baguette</h3>
+                <span>Bois : {{detailWizard[1].bois}}</span>
+                <span>Coeur : {{detailWizard[1].coeur}}</span>
+                <span>Taille : {{detailWizard[1].taille}} cm</span>
+                <span>Souplesse : {{detailWizard[1].souplesse}}</span>
+            </div>
+            <div class="ecole">
+                <h3>Ecole et maison</h3>
+                <span>Ecole : {{detailWizard[2].nom}}</span>
+                <span>Maison : {{detailWizard[2].maison}}</span>
+            </div>
+        </div>
+    </mat-card>
+<!-- </div> -->
+    
+</body>

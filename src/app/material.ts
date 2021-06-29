@@ -12,9 +12,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
-    imports: [MatButtonModule, MatCheckboxModule, MatTabsModule, MatInputModule, MatRadioModule, MatTooltipModule, MatChipsModule, MatProgressBarModule, MatSliderModule, MatAutocompleteModule, MatExpansionModule, MatIconModule, MatStepperModule],
-    exports: [MatButtonModule, MatCheckboxModule, MatTabsModule, MatInputModule, MatRadioModule, MatTooltipModule, MatChipsModule, MatProgressBarModule, MatSliderModule, MatAutocompleteModule, MatExpansionModule, MatIconModule, MatStepperModule],
+    imports: [MatButtonModule, MatCheckboxModule, MatTabsModule, MatInputModule, MatRadioModule, MatTooltipModule, MatChipsModule, MatProgressBarModule, MatSliderModule, MatAutocompleteModule, MatExpansionModule, MatIconModule, MatStepperModule, MatListModule],
+    exports: [MatButtonModule, MatCheckboxModule, MatTabsModule, MatInputModule, MatRadioModule, MatTooltipModule, MatChipsModule, MatProgressBarModule, MatSliderModule, MatAutocompleteModule, MatExpansionModule, MatIconModule, MatStepperModule, MatListModule],
 })
 export class MaterialModule{}

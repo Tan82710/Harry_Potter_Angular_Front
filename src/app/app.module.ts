@@ -17,6 +17,7 @@ import { CreateWizardComponent } from './create-wizard/create-wizard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { IgxAvatarModule } from 'igniteui-angular';
+import { DetailNewWizardComponent } from './detail-new-wizard/detail-new-wizard.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IgxAvatarModule } from 'igniteui-angular';
     DetailComponent,
     Error404Component,
     CreateWizardComponent,
+    DetailNewWizardComponent,
   ],
   imports: [
     BrowserModule,

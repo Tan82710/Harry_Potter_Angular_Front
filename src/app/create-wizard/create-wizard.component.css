@@ -48,13 +48,6 @@ h2{
     position: static;
   }
 
-  .name {
-    /* position: static; */
-  }
-
-  .next {
-    
-  }
   /* Animation, faire clignoter le border-right */
   @keyframes blink {
     from,
